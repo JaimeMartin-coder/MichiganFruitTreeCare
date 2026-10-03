@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Michigan Fruit Tree Calendar: When to Prune, Feed, and Spray</title>
+<meta name="description" content="Pick your fruit tree and find the best time to prune, fertilize, and spray for diseases in Michigan.">
+<!-- Link preview tags: replace REPO-NAME (2 places) with your GitHub repo name -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="Michigan Fruit Tree Calendar">
+<meta property="og:description" content="Pick your fruit tree and find the best time to prune, fertilize, and spray for diseases in Michigan.">
+<meta property="og:url" content="https://jaimemartin-coder.github.io/REPO-NAME/">
+<meta property="og:image" content="https://jaimemartin-coder.github.io/REPO-NAME/preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Michigan Fruit Tree Calendar with apple, pear, peach, cherry, plum, and apricot, above a prune, fertilize, and spray calendar">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Young+Serif&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F2F5EE;
+    --surface: #FFFFFF;
+    --ink: #1D2B24;
+    --muted: #55655C;
+    --line: #D3DCCF;
+    --chip: #E4ECE0;
+    --accent: #2F5D3A;
+    --accent-ink: #FFFFFF;
+    --prune: #2B5C73;
+    --feed: #3E7B3F;
+    --spray: #B3263E;
+    --now: #1D2B24;
+    --display: "Young Serif", Georgia, "Times New Roman", serif;
+    --body: "Instrument Sans", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #111915; --surface: #1A2520; --ink: #E6EEE7; --muted: #9FB2A5;
+      --line: #2D3B33; --chip: #24332B; --accent: #7FC27F; --accent-ink: #10201A;
+      --prune: #6FB0CC; --feed: #7FC27F; --spray: #EE8497; --now: #E6EEE7;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #111915; --surface: #1A2520; --ink: #E6EEE7; --muted: #9FB2A5;
+    --line: #2D3B33; --chip: #24332B; --accent: #7FC27F; --accent-ink: #10201A;
+    --prune: #6FB0CC; --feed: #7FC27F; --spray: #EE8497; --now: #E6EEE7;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  *, *::before, *::after { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--body); font-size: 1rem; line-height: 1.55;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 2rem 1.1rem 3rem; }
+
+  h1 {
+    font-family: var(--display); font-weight: 400;
+    font-size: clamp(1.9rem, 5.5vw, 2.9rem); line-height: 1.12; margin: 0 0 .7rem;
+    max-width: 17em;
+  }
+  .lede { color: var(--muted); max-width: 40em; margin: 0 0 1.8rem; font-size: 1.05rem; }
+
+  /* Picker */
+  .picker { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 1.1rem; }
+  .picker h2 { font-size: 1rem; margin: 0 0 .7rem; font-weight: 600; }
+  .trees { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: .5rem; }
+  .tree-btn {
+    display: flex; align-items: center; gap: .6rem; text-align: left;
+    background: var(--bg); color: var(--ink); border: 1.5px solid var(--line); border-radius: 10px;
+    padding: .55rem .7rem; font: inherit; font-weight: 500; cursor: pointer;
+  }
+  .tree-btn svg { flex: none; }
+  .tree-btn:hover { border-color: var(--accent); }
+  .tree-btn[aria-checked="true"] { border-color: var(--accent); background: var(--chip); box-shadow: inset 0 0 0 1px var(--accent); }
+  :focus-visible { outline: 3px solid var(--prune); outline-offset: 2px; }
+
+  .row { display: flex; flex-wrap: wrap; gap: 1rem 1.5rem; margin-top: 1rem; align-items: end; }
+  .field { display: flex; flex-direction: column; gap: .3rem; min-width: 0; }
+  .field label { font-size: .9rem; font-weight: 600; }
+  select {
+    font: inherit; color: var(--ink); background: var(--bg); border: 1.5px solid var(--line);
+    border-radius: 10px; padding: .55rem .7rem; max-width: 100%;
+  }
+
+  /* Result header */
+  .result-head { margin: 2rem 0 .3rem; }
+  .result-head h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.6rem, 4.5vw, 2.2rem); margin: 0; line-height: 1.15; }
+  .varieties { color: var(--muted); margin: .3rem 0 0; }
+  .notice {
+    margin: .9rem 0 0; padding: .7rem .9rem; border-left: 4px solid var(--spray);
+    background: var(--surface); border-radius: 0 8px 8px 0; font-size: .95rem;
+  }
+  .shift { color: var(--muted); font-size: .92rem; margin: .6rem 0 0; }
+  .legend { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; font-size: .88rem; color: var(--muted); margin: 1rem 0 0; }
+  .legend span { display: inline-flex; align-items: center; gap: .4rem; }
+  .sw { width: 26px; height: 10px; border-radius: 3px; background: var(--ink); display: inline-block; }
+  .sw.light { background: repeating-linear-gradient(135deg, var(--ink) 0 3px, transparent 3px 6px); border: 1px solid var(--ink); }
+  .sw.nowline { width: 2px; height: 14px; border-radius: 0; background: var(--now); }
+
+  /* Sections */
+  section.block {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 1.2rem 1.1rem 1.3rem; margin-top: 1.1rem;
+    border-top: 6px solid var(--c);
+  }
+  section.block.prune { --c: var(--prune); }
+  section.block.feed { --c: var(--feed); }
+  section.block.spray { --c: var(--spray); }
+  .block h3.sec { font-family: var(--display); font-weight: 400; font-size: 1.45rem; margin: 0; }
+  .best { font-size: 1.15rem; font-weight: 600; margin: .2rem 0 .1rem; }
+  .when-note { color: var(--muted); margin: 0 0 .9rem; }
+  .status {
+    display: inline-block; font-size: .92rem; font-weight: 500;
+    background: var(--chip); border-radius: 999px; padding: .25rem .8rem; margin: 0 0 1rem;
+  }
+  .status.go { background: var(--c); color: #fff; }
+  :root[data-theme="dark"] .status.go { color: #10201A; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .status.go { color: #10201A; } }
+
+  /* Timeline */
+  .ruler { display: grid; grid-template-columns: repeat(12, 1fr); font-size: .78rem; color: var(--muted); }
+  .ruler span { text-align: center; }
+  .track {
+    position: relative; height: 26px; border-radius: 6px; background: var(--bg); border: 1px solid var(--line); overflow: hidden;
+  }
+  .track::before {
+    content: ""; position: absolute; inset: 0;
+    background: repeating-linear-gradient(90deg, transparent 0, transparent calc(100%/12 - 1px), var(--line) calc(100%/12 - 1px), var(--line) calc(100%/12));
+  }
+  .bar { position: absolute; top: 4px; bottom: 4px; border-radius: 4px; background: var(--c); }
+  .bar.light {
+    background: repeating-linear-gradient(135deg, var(--c) 0 3px, transparent 3px 6px);
+    border: 1.5px solid var(--c);
+  }
+  .now { position: absolute; top: 0; bottom: 0; width: 2px; background: var(--now); z-index: 2; }
+
+  .detail { margin-top: 1rem; display: grid; gap: .9rem; }
+  .detail h4 { margin: 0 0 .25rem; font-size: .98rem; }
+  .detail ul { margin: 0; padding-left: 1.15rem; }
+  .detail li { margin: .25rem 0; max-width: 62ch; }
+  .detail p { margin: 0; max-width: 62ch; }
+
+  /* Spray events */
+  .filter { margin-bottom: 1rem; }
+  .ev { border-top: 1px solid var(--line); padding-top: 1rem; margin-top: 1rem; }
+  .ev:first-of-type { border-top: 0; padding-top: 0; margin-top: 0; }
+  .ev-h { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .1rem 1rem; margin-bottom: .4rem; }
+  .ev-h h4 { margin: 0; font-size: 1.05rem; }
+  .ev-h .when { color: var(--muted); font-size: .92rem; font-weight: 500; }
+  .ev p { margin: .55rem 0 0; max-width: 62ch; }
+  .ev .active-tag { font-size: .8rem; font-weight: 600; background: var(--c); color: #fff; border-radius: 999px; padding: .05rem .55rem; margin-left: .4rem; vertical-align: middle; }
+  :root[data-theme="dark"] .ev .active-tag { color: #10201A; }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .ev .active-tag { color: #10201A; } }
+
+  footer { margin-top: 2rem; color: var(--muted); font-size: .9rem; max-width: 62ch; }
+  footer p { margin: 0 0 .6rem; }
+  footer a { color: var(--accent); }
+
+  @media (max-width: 560px) {
+    .ruler span { font-size: 0; }
+    .ruler span::after { content: attr(data-s); font-size: .75rem; }
+    .trees { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <h1>When to prune, feed, and spray your Michigan fruit trees</h1>
+  <p class="lede">Pick your tree and where you grow it. You'll get the best timing for pruning, fertilizing, and disease sprays, with today's date marked on each calendar.</p>
+
+  <div class="picker">
+    <h2 id="tree-label">Which tree do you have?</h2>
+    <div class="trees" role="radiogroup" aria-labelledby="tree-label" id="trees"></div>
+    <div class="row">
+      <div class="field">
+        <label for="region">Where in Michigan?</label>
+        <select id="region">
+          <option value="south">Southern Lower Peninsula (Detroit, Kalamazoo, Grand Rapids)</option>
+          <option value="north">Northern Lower Peninsula (Traverse City, Gaylord)</option>
+          <option value="up">Upper Peninsula</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div id="result" aria-live="polite"></div>
+
+  <footer>
+    <p>Timing is based on general Michigan State University Extension guidance for home orchards, which tracks tree growth stages (green tip, bloom, petal fall) more than calendar dates. A warm spring can move everything up by two weeks or more, so watch your buds and use the calendar as a guide.</p>
+    <p>For spray products and rates, check MSU Extension and the current label on any product you buy. Labels are the law, and rules differ for home and commercial use. Keep insecticides off open blooms to protect pollinators.</p>
+  </footer>
+</main>
+
+<script>
+(function () {
+  var MONTHS = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var MONTH_LETTERS = ["J","F","M","A","M","J","J","A","S","O","N","D"];
+
+  // Slots are half-months: Early Jan = 0, Late Jan = 1, ... Late Dec = 23.
+  var REGIONS = {
+    south: { off: 0, text: "" },
+    north: { off: 1, text: "Dates shifted about two weeks later for the Northern Lower Peninsula." },
+    up:    { off: 2, text: "Dates shifted about a month later for the Upper Peninsula." }
+  };
+
+  var TREES = [
+    {
+      id: "apple", name: "Apple", color: "#C62F3B",
+      varieties: "Honeycrisp, Gala, McIntosh, Jonathan, Empire, Cortland",
+      prune: {
+        when: "Late winter, while the tree is still dormant",
+        w: [{ r: [3, 6], kind: "main" }, { r: [13, 14], kind: "light" }],
+        avoid: "Skip fall and early-winter pruning, which leaves fresh cuts exposed to hard cold. Hold off on cuts during wet weather around bloom, when fire blight spreads easily.",
+        tips: [
+          "Start with dead, broken, and crossing branches, then thin the center so sunlight reaches the fruit.",
+          "The striped window (late July to early August) is for light work only: remove vigorous water sprouts.",
+          "If you see fire blight (shoots bent like a shepherd's crook), cut 8 to 12 inches below the damage on a dry day and disinfect your tools between cuts."
+        ]
+      },
+      feed: {
+        when: "Early spring, around bud swell",
+        w: [{ r: [5, 7], kind: "main" }],
+        avoid: "No nitrogen after early July. Late growth doesn't harden off before winter.",
+        tips: [
+          "Get a soil test first. Fruit trees often need little beyond nitrogen.",
+          "On mature trees, 8 to 12 inches of new shoot growth is about right. More than that means ease off.",
+          "Spread fertilizer under the canopy and keep it several inches from the trunk."
+        ]
+      },
+      spray: [
+        { name: "Fire blight and early scab", stage: "Silver to green tip", detail: "A fixed copper spray as buds first show green helps hold down fire blight and scab inoculum. Use only the copper rate on the label.", w: [{ r: [6, 7] }] },
+        { name: "Apple scab", stage: "Green tip through two to three weeks after petal fall", detail: "Scab is the main Michigan apple disease. Spray with a home orchard fungicide labeled for apples, and repeat every 7 to 10 days when spring is wet.", w: [{ r: [7, 9] }] },
+        { name: "Fire blight at bloom", stage: "Bloom, during warm and humid weather", detail: "Open blossoms are the entry point. Home growers have few good spray options here, so lean on resistant varieties and quick pruning of any strikes. Ask MSU Extension about current labeled products.", w: [{ r: [8, 8] }] },
+        { name: "Cedar-apple rust", stage: "Pink bud through about two weeks after petal fall", detail: "Needed mainly if red cedars or junipers grow nearby. Susceptible varieties include Jonathan and Cortland.", w: [{ r: [8, 9] }] },
+        { name: "Powdery mildew", stage: "Tight cluster into early summer", detail: "Look for white, felt-like coating on new leaves. Jonathan is especially prone. A fungicide labeled for powdery mildew can be added to scab sprays.", w: [{ r: [7, 10] }] },
+        { name: "Sooty blotch, flyspeck, and fruit rots", stage: "Two weeks after petal fall, then every 10 to 14 days", detail: "These summer diseases blemish the skin. Keep going through August, and pay attention to the pre-harvest interval on the label.", w: [{ r: [10, 15] }] }
+      ]
+    },
+    {
+      id: "pear", name: "Pear", color: "#B5C23A",
+      varieties: "Bartlett, Bosc, Anjou, Seckel",
+      prune: {
+        when: "Late winter, while the tree is dormant",
+        w: [{ r: [3, 6], kind: "main" }],
+        avoid: "Pears are very prone to fire blight. Avoid heavy pruning, especially in summer, because it triggers soft new shoots that the bacteria love.",
+        tips: [
+          "Keep a strong central leader and remove upright, vigorous shoots that shade the tree.",
+          "Cut out any fire blight strikes right away, 8 to 12 inches below visible damage, on a dry day.",
+          "Disinfect your pruners between cuts when you're working on infected wood."
+        ]
+      },
+      feed: {
+        when: "Early spring, at bud swell",
+        w: [{ r: [6, 7], kind: "main" }],
+        avoid: "Go easy. Too much nitrogen makes lush growth that fire blight spreads through. Skip anything after early summer.",
+        tips: [
+          "Pears need less nitrogen than apples. Check shoot growth before you apply anything.",
+          "If new shoots are already 10 inches or more, you can usually skip fertilizer this year.",
+          "Run a soil test every few years."
+        ]
+      },
+      spray: [
+        { name: "Fire blight and scab (dormant copper)", stage: "Silver to green tip", detail: "One fixed copper application at the start of bud growth. Follow the label rate closely.", w: [{ r: [6, 7] }] },
+        { name: "Pear scab", stage: "Green tip through two to three weeks after petal fall", detail: "Same timing and approach as apple scab. Repeat every 7 to 10 days in wet weather.", w: [{ r: [7, 9] }] },
+        { name: "Fire blight at bloom", stage: "Bloom, during warm and humid weather", detail: "Blossom blight can move fast. Home options are limited, so prune out strikes promptly and consider resistant varieties next time.", w: [{ r: [8, 8] }] },
+        { name: "Pear leaf spot", stage: "Petal fall through summer", detail: "Look for small dark spots that make leaves drop early. Repeat every 10 to 14 days with a fungicide labeled for pears.", w: [{ r: [9, 14] }] }
+      ]
+    },
+    {
+      id: "peach", name: "Peach and nectarine", color: "#F0955A",
+      varieties: "Redhaven, Reliance, Contender, Glohaven, and nectarines like Redgold",
+      prune: {
+        when: "Late March through April, near bud swell and bloom",
+        w: [{ r: [5, 7], kind: "main" }],
+        avoid: "Don't prune in fall or midwinter. Peaches are cold-tender, and pruning too early can leave you cutting away buds that a late freeze would have killed anyway. Wet-weather cuts invite canker.",
+        tips: [
+          "Wait until the worst of the cold has passed, then you can see which flower buds survived.",
+          "Peaches fruit on last year's growth. Aim for an open vase shape and remove about a third of the older wood each year.",
+          "Prune on dry days and clear out fallen prunings."
+        ]
+      },
+      feed: {
+        when: "Early spring, at bud swell",
+        w: [{ r: [6, 7], kind: "main" }, { r: [9, 10], kind: "light" }],
+        avoid: "Nothing after midsummer. Late nitrogen delays hardening and raises the risk of winter injury.",
+        tips: [
+          "The striped window is an optional small second dose for trees with weak growth.",
+          "Mature peaches should make about 12 to 18 inches of new growth. More means cut back.",
+          "Keep grass and weeds away from the base. Peaches compete poorly."
+        ]
+      },
+      spray: [
+        { name: "Peach leaf curl", stage: "Late winter before buds swell, or after leaf drop in fall", detail: "One fungicide application is what counts. Use a labeled copper or chlorothalonil product. Once buds open, it's too late to control it for the year.", w: [{ r: [4, 5] }, { r: [20, 21], fall: true }] },
+        { name: "Brown rot (blossom blight)", stage: "Pink bud through full bloom", detail: "Cool, wet bloom weather is the risk. Spray with a fungicide labeled for stone fruit and cover open blossoms.", w: [{ r: [6, 7] }] },
+        { name: "Peach scab", stage: "Shuck split, then every two weeks until about five weeks before harvest", detail: "Scab shows as small olive spots on fruit. Thin the canopy so fruit dries quickly after rain.", w: [{ r: [8, 11] }] },
+        { name: "Brown rot (ripe fruit)", stage: "Two to three weeks before harvest, then again a week before", detail: "Check the pre-harvest interval on the label. Pick and remove any mummified fruit left on the tree.", w: [{ r: [13, 15] }] }
+      ]
+    },
+    {
+      id: "sweetcherry", name: "Sweet cherry", color: "#7A1530",
+      varieties: "Napoleon, Emperor Francis, Hedelfingen, Gold",
+      prune: {
+        when: "Summer, right after harvest",
+        w: [{ r: [12, 15], kind: "main" }, { r: [4, 5], kind: "light" }],
+        avoid: "Avoid fall and winter pruning. Bacterial canker and other diseases infect fresh cuts in cool, wet weather.",
+        tips: [
+          "Prune on dry, sunny days so cuts seal quickly.",
+          "Keep pruning light. Sweet cherries respond poorly to heavy cuts.",
+          "The striped late-winter window is for removing only dead or broken wood."
+        ]
+      },
+      feed: {
+        when: "Early spring, as buds start to swell",
+        w: [{ r: [6, 7], kind: "main" }],
+        avoid: "Skip summer and fall feeding. Late growth is soft and prone to disease.",
+        tips: [
+          "Cherries need little. If shoots are growing vigorously, you can skip it.",
+          "A soil test or leaf test every few years takes the guesswork out.",
+          "Spread feed under the canopy, not against the trunk."
+        ]
+      },
+      spray: [
+        { name: "Brown rot (blossom)", stage: "Bloom", detail: "Cool, wet weather during bloom is when blossoms get infected. Use a fungicide labeled for cherries.", w: [{ r: [7, 8] }] },
+        { name: "Cherry leaf spot", stage: "Petal fall through early June, then again right after harvest", detail: "Leaf spot makes leaves yellow and fall in summer, which weakens the tree for winter. Repeat every 10 to 14 days.", w: [{ r: [8, 11] }, { r: [14, 15] }] },
+        { name: "Brown rot (ripe fruit)", stage: "Two to three weeks before harvest", detail: "Sweet cherries split in rain and rot fast. Check the pre-harvest interval on the label.", w: [{ r: [11, 12] }] },
+        { name: "Bacterial canker", stage: "As leaves drop in fall", detail: "A fixed copper spray adds a little protection, but pruning timing and tree health matter more.", w: [{ r: [18, 20], fall: true }] }
+      ]
+    },
+    {
+      id: "tartcherry", name: "Tart cherry", color: "#D8283F",
+      varieties: "Montmorency, Balaton, North Star",
+      prune: {
+        when: "Summer, right after harvest",
+        w: [{ r: [13, 15], kind: "main" }, { r: [4, 6], kind: "light" }],
+        avoid: "Avoid fall and early-winter pruning. Tart cherries need little pruning in general, so keep cuts small and few.",
+        tips: [
+          "Remove dead wood and thin crowded branches to let air through.",
+          "The striped late-winter window works for light cleanup, as long as wounds can dry quickly.",
+          "Prune on dry days."
+        ]
+      },
+      feed: {
+        when: "Early spring, around bud swell",
+        w: [{ r: [6, 7], kind: "main" }],
+        avoid: "No fertilizer after early summer.",
+        tips: [
+          "Montmorency is a moderate grower. Check shoot growth before you decide how much to add.",
+          "Test your soil first, since pH affects what the tree can use.",
+          "Keep feed off the trunk and spread it under the canopy."
+        ]
+      },
+      spray: [
+        { name: "Brown rot (blossom)", stage: "Bloom", detail: "Protect open blossoms during cool, wet weather with a fungicide labeled for cherries.", w: [{ r: [7, 8] }] },
+        { name: "Cherry leaf spot", stage: "Petal fall through early June, then again right after harvest", detail: "This is the most important tart cherry disease in Michigan. Early leaf drop weakens the tree, and the post-harvest spray protects next year's buds. Repeat every 10 to 14 days.", w: [{ r: [8, 11] }, { r: [14, 15] }] },
+        { name: "Brown rot (ripe fruit)", stage: "Two to three weeks before harvest", detail: "Check the label's pre-harvest interval before you spray.", w: [{ r: [11, 12] }] }
+      ]
+    },
+    {
+      id: "plum", name: "Plum", color: "#5B3A7E",
+      varieties: "Stanley, Santa Rosa, Shiro, Damson",
+      prune: {
+        when: "Late winter to early spring, before buds open",
+        w: [{ r: [3, 6], kind: "main" }, { r: [13, 14], kind: "light" }],
+        avoid: "Avoid fall and early-winter pruning. Japanese plums can take heavier cuts than European plums, but neither likes wet-weather pruning.",
+        tips: [
+          "Cut out black knot (black, crusty swellings) at least 4 inches below the knot, and bag or burn the wood.",
+          "Japanese plums bear heavy crops. Thin the branches and fruit so limbs don't break.",
+          "The striped summer window is for light shaping only."
+        ]
+      },
+      feed: {
+        when: "Early spring, at bud swell",
+        w: [{ r: [6, 7], kind: "main" }],
+        avoid: "No nitrogen after early summer.",
+        tips: [
+          "Plums are moderate feeders. Check shoot growth first.",
+          "Test your soil every few years.",
+          "Keep feed away from the trunk."
+        ]
+      },
+      spray: [
+        { name: "Black knot", stage: "Bud break through shoot growth, in wet weather", detail: "Pruning out knots matters most. A labeled fungicide during spring rains protects new growth. Repeat every 10 to 14 days.", w: [{ r: [7, 10] }] },
+        { name: "Brown rot (blossom)", stage: "Bloom", detail: "Cool, wet bloom weather is the danger. Spray with a fungicide labeled for plums.", w: [{ r: [7, 8] }] },
+        { name: "Brown rot (ripe fruit)", stage: "Two to three weeks before harvest", detail: "Check the label for the pre-harvest interval. Remove mummified fruit.", w: [{ r: [14, 16] }] },
+        { name: "Bacterial canker", stage: "As leaves drop in fall", detail: "A fixed copper spray adds some protection. Avoid wet-weather pruning.", w: [{ r: [18, 20], fall: true }] }
+      ]
+    },
+    {
+      id: "apricot", name: "Apricot", color: "#EBA43A",
+      varieties: "Harcot, Goldcot, Moorpark",
+      prune: {
+        when: "Summer, after harvest, in dry weather",
+        w: [{ r: [13, 15], kind: "main" }],
+        avoid: "Avoid pruning in wet weather or during winter. Apricots are prone to Eutypa dieback, which enters through cuts.",
+        tips: [
+          "Prune on warm, dry days and keep the cuts few and clean.",
+          "Apricots bloom very early, so frost can take the crop. Choose a protected site if you can.",
+          "Remove dead or diseased wood as soon as you spot it."
+        ]
+      },
+      feed: {
+        when: "Early spring, at bud swell",
+        w: [{ r: [6, 7], kind: "main" }],
+        avoid: "Nothing after early summer. Late growth is vulnerable to winter damage.",
+        tips: [
+          "Apricots need little. Light feeding is usually enough.",
+          "Check shoot growth before you add anything.",
+          "Keep feed away from the trunk."
+        ]
+      },
+      spray: [
+        { name: "Brown rot (blossom)", stage: "Pink bud through bloom", detail: "Apricots bloom early, often in cool, wet weather. Spray with a fungicide labeled for apricots.", w: [{ r: [6, 7] }] },
+        { name: "Brown rot (ripe fruit)", stage: "Two to three weeks before harvest", detail: "Check the label's pre-harvest interval.", w: [{ r: [12, 13] }] },
+        { name: "Bacterial canker", stage: "As leaves drop in fall", detail: "A fixed copper spray adds some protection.", w: [{ r: [18, 20], fall: true }] }
+      ]
+    }
+  ];
+
+  var UP_MARGINAL = { peach: true, apricot: true, sweetcherry: true };
+
+  var state = { tree: "apple", region: "south", disease: "all" };
+  try {
+    var saved = JSON.parse(localStorage.getItem("mi-orchard") || "null");
+    if (saved && saved.tree) state.tree = saved.tree;
+    if (saved && saved.region) state.region = saved.region;
+  } catch (e) {}
+  function save() { try { localStorage.setItem("mi-orchard", JSON.stringify({ tree: state.tree, region: state.region })); } catch (e) {} }
+
+  // ---- helpers
+  function clamp(n) { return Math.max(0, Math.min(23, n)); }
+  function slotName(s) { return (s % 2 ? "Late " : "Early ") + MONTHS[s >> 1]; }
+  function rangeText(r) { return r[0] === r[1] ? slotName(r[0]) : slotName(r[0]) + " to " + slotName(r[1]); }
+  function shifted(win) {
+    var off = REGIONS[state.region].off * (win.fall ? -1 : 1);
+    return { r: [clamp(win.r[0] + off), clamp(win.r[1] + off)], kind: win.kind, fall: win.fall };
+  }
+  function windows(list) { return list.map(shifted); }
+  function textFor(list) { return list.map(function (w) { return rangeText(w.r); }).join(" and "); }
+
+  var today = new Date();
+  var curSlot = today.getMonth() * 2 + (today.getDate() > 15 ? 1 : 0);
+  var daysInMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0).getDate();
+  var nowPct = ((today.getMonth() + (today.getDate() - 1) / daysInMonth) / 12) * 100;
+
+  function inWin(w) { return curSlot >= w.r[0] && curSlot <= w.r[1]; }
+  function nextStart(list) {
+    var best = null;
+    list.forEach(function (w) {
+      var d = (w.r[0] - curSlot + 24) % 24;
+      if (d > 0 && (best === null || d < best.d)) best = { d: d, s: w.r[0] };
+    });
+    return best;
+  }
+
+  function trackHTML(list, label) {
+    var bars = list.map(function (w) {
+      var left = (w.r[0] / 24) * 100, width = ((w.r[1] - w.r[0] + 1) / 24) * 100;
+      return '<span class="bar ' + (w.kind === "light" ? "light" : "") + '" style="left:' + left + '%;width:' + width + '%"></span>';
+    }).join("");
+    return '<div class="track" role="img" aria-label="' + label + '">' + bars + '<i class="now" style="left:' + nowPct + '%"></i></div>';
+  }
+  function rulerHTML() {
+    return '<div class="ruler" aria-hidden="true">' + MONTHS.map(function (m, i) {
+      return '<span data-s="' + MONTH_LETTERS[i] + '">' + m + '</span>';
+    }).join("") + '</div>';
+  }
+
+  function statusHTML(list, goText, lightText, idleLabel) {
+    var main = list.filter(function (w) { return w.kind !== "light"; });
+    var light = list.filter(function (w) { return w.kind === "light"; });
+    if (main.some(inWin)) return '<p class="status go">' + goText + '</p>';
+    if (light.some(inWin)) return '<p class="status">' + lightText + '</p>';
+    var n = nextStart(main);
+    return '<p class="status">' + idleLabel + (n ? " Next window opens " + slotName(n.s) + "." : "") + '</p>';
+  }
+
+  function infoSection(cls, title, data, goText, lightText, idleLabel) {
+    var wins = windows(data.w);
+    var mainWins = wins.filter(function (w) { return w.kind !== "light"; });
+    var lightWins = wins.filter(function (w) { return w.kind === "light"; });
+    var when = textFor(mainWins);
+    var extra = lightWins.length ? "Light work only: " + textFor(lightWins) + "." : "";
+    var label = title + " calendar. Best: " + when + ". " + extra;
+    return '<section class="block ' + cls + '" aria-labelledby="h-' + cls + '">' +
+      '<h3 class="sec" id="h-' + cls + '">' + title + '</h3>' +
+      '<p class="best">' + when + '</p>' +
+      '<p class="when-note">' + data.when + '.' + (extra ? " " + extra : "") + '</p>' +
+      statusHTML(wins, goText, lightText, idleLabel) +
+      rulerHTML() + trackHTML(wins, label) +
+      '<div class="detail">' +
+        '<div><h4>What to avoid</h4><p>' + data.avoid + '</p></div>' +
+        '<div><h4>Tips</h4><ul>' + data.tips.map(function (t) { return '<li>' + t + '</li>'; }).join("") + '</ul></div>' +
+      '</div></section>';
+  }
+
+  function spraySection(t) {
+    var events = t.spray.map(function (e) {
+      return { name: e.name, stage: e.stage, detail: e.detail, w: windows(e.w) };
+    });
+    if (state.disease !== "all" && !events.some(function (e) { return e.name === state.disease; })) state.disease = "all";
+    var shown = events.filter(function (e) { return state.disease === "all" || e.name === state.disease; });
+    var activeNow = events.filter(function (e) { return e.w.some(inWin); });
+
+    var statusLine;
+    if (activeNow.length) {
+      statusLine = '<p class="status go">' + (activeNow.length === 1 ? "1 spray window is open right now" : activeNow.length + " spray windows are open right now") + '.</p>';
+    } else {
+      var best = null;
+      events.forEach(function (e) {
+        var n = nextStart(e.w);
+        if (n && (best === null || n.d < best.d)) best = { d: n.d, s: n.s, name: e.name };
+      });
+      statusLine = '<p class="status">No spray windows are open right now.' + (best ? " Next up: " + best.name + ", " + slotName(best.s) + "." : "") + '</p>';
+    }
+
+    var options = '<option value="all">All diseases</option>' + events.map(function (e) {
+      return '<option value="' + e.name + '"' + (state.disease === e.name ? " selected" : "") + '>' + e.name + '</option>';
+    }).join("");
+
+    var rows = shown.map(function (e) {
+      var isActive = e.w.some(inWin);
+      var wt = textFor(e.w);
+      return '<article class="ev">' +
+        '<div class="ev-h"><h4>' + e.name + (isActive ? '<span class="active-tag">Open now</span>' : '') + '</h4><span class="when">' + wt + '</span></div>' +
+        trackHTML(e.w, e.name + " spray window: " + wt) +
+        '<p><strong>' + e.stage + '.</strong> ' + e.detail + '</p>' +
+      '</article>';
+    }).join("");
+
+    return '<section class="block spray" aria-labelledby="h-spray">' +
+      '<h3 class="sec" id="h-spray">Spray for diseases</h3>' +
+      '<p class="when-note">Each disease has its own window. Choose one to focus on, or see them all.</p>' +
+      statusLine +
+      '<div class="field filter"><label for="disease">Disease</label><select id="disease">' + options + '</select></div>' +
+      rulerHTML() + '<div>' + rows + '</div>' +
+    '</section>';
+  }
+
+  function render() {
+    var t = TREES.filter(function (x) { return x.id === state.tree; })[0];
+    var r = REGIONS[state.region];
+    var notice = (state.region === "up" && UP_MARGINAL[t.id])
+      ? '<p class="notice">' + t.name + ' is marginal in the Upper Peninsula because of winter cold and late frosts. Choose a sheltered site, such as near Lake Superior or Lake Michigan, and consider hardier fruit like apples, tart cherries, or hardy plums.</p>' : "";
+
+    document.getElementById("result").innerHTML =
+      '<div class="result-head"><h2>' + t.name + '</h2><p class="varieties">Common Michigan varieties: ' + t.varieties + '</p>' + notice +
+      (r.text ? '<p class="shift">' + r.text + '</p>' : '') +
+      '<div class="legend"><span><i class="sw"></i> Best window</span><span><i class="sw light"></i> Light work only</span><span><i class="sw nowline"></i> Today</span></div></div>' +
+      infoSection("prune", "Prune", t.prune, "Now is a good time to prune.", "Light pruning only right now.", "Not the time to prune.") +
+      infoSection("feed", "Fertilize", t.feed, "Now is a good time to fertilize.", "A small second feeding is optional right now.", "Not the time to fertilize.") +
+      spraySection(t);
+
+    var d = document.getElementById("disease");
+    if (d) d.addEventListener("change", function () { state.disease = d.value; render(); document.getElementById("disease").focus(); });
+  }
+
+  function fruitIcon(c) {
+    return '<svg width="28" height="28" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="16" r="9" fill="' + c + '"/><path d="M14 8 C14 4 17 3 20 3 C20 6 18 8 14 8Z" fill="#3E7B3F"/><path d="M14 8 L14 5" stroke="#6B4A33" stroke-width="1.6" stroke-linecap="round"/></svg>';
+  }
+
+  function buildPicker() {
+    var box = document.getElementById("trees");
+    box.innerHTML = TREES.map(function (t) {
+      return '<button type="button" class="tree-btn" role="radio" aria-checked="' + (t.id === state.tree) + '" data-id="' + t.id + '" tabindex="' + (t.id === state.tree ? 0 : -1) + '">' + fruitIcon(t.color) + '<span>' + t.name + '</span></button>';
+    }).join("");
+    var btns = Array.prototype.slice.call(box.querySelectorAll(".tree-btn"));
+    function choose(btn) {
+      state.tree = btn.getAttribute("data-id"); state.disease = "all"; save();
+      btns.forEach(function (b) { var on = b === btn; b.setAttribute("aria-checked", on); b.tabIndex = on ? 0 : -1; });
+      render();
+    }
+    btns.forEach(function (b, i) {
+      b.addEventListener("click", function () { choose(b); });
+      b.addEventListener("keydown", function (e) {
+        var k = e.key, n = null;
+        if (k === "ArrowRight" || k === "ArrowDown") n = btns[(i + 1) % btns.length];
+        if (k === "ArrowLeft" || k === "ArrowUp") n = btns[(i - 1 + btns.length) % btns.length];
+        if (n) { e.preventDefault(); n.focus(); choose(n); }
+      });
+    });
+  }
+
+  var regionSel = document.getElementById("region");
+  regionSel.value = state.region;
+  regionSel.addEventListener("change", function () { state.region = regionSel.value; save(); render(); });
+
+  buildPicker();
+  render();
+})();
+</script>
+</body>
+</html>
